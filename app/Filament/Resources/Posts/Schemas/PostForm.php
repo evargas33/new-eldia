@@ -21,11 +21,11 @@ class PostForm
     {
         return $schema
             ->components([
-                
+
                 // Tu Grid de 3 columnas usando los Groups bien importados
                 Grid::make(3)
                     ->schema([
-                        
+
                         // Columna Izquierda (Contenido) -> Toma 2 columnas del Grid
                         Group::make([
                             Section::make('Contenido de la Nota')
@@ -35,7 +35,7 @@ class PostForm
                                         ->required()
                                         ->maxLength(255)
                                         ->live(onBlur: true)
-                                        ->afterStateUpdated(fn ($state, $set) => $set('slug', Str::slug($state))),
+                                        ->afterStateUpdated(fn($state, $set) => $set('slug', Str::slug($state))),
 
                                     TextInput::make('slug')
                                         ->label('URL Amigable (Slug)')
@@ -88,9 +88,15 @@ class PostForm
                                         ->directory('noticias')
                                         ->imageEditor()
                                         ->required(),
+                                    // ⬇️ EL NUEVO CAMPO PARA LA LEYENDA (PIE DE FOTO) ⬇️
+                                    TextInput::make('image_caption')
+                                        ->label('Leyenda de la Imagen')
+                                        ->placeholder('Ej: Imagen de Archivo...')
+                                        ->maxLength(255) // Para que no rompa la base de datos
+                                        ->string(), // Validación básica de texto
                                 ]),
                         ])->columnSpan(1),
-                        
+
                     ]),
             ])->columns(1); // El Grid principal ocupa 1 columna para que los Groups internos manejen su propio span
     }

@@ -17,11 +17,25 @@ class PostInfolist
                 TextEntry::make('subtitle')
                     ->placeholder('-'),
                 TextEntry::make('content')
+                    ->columnSpanFull()
+                    ->html()
                     ->columnSpanFull(),
                 ImageEntry::make('image_banner')
-                    ->placeholder('-'),
-                ImageEntry::make('image_caption')
-                    ->placeholder('-'),
+                    ->placeholder('-')
+                    ->label('Imagen de Portada')
+                    // ⬇️ EN FILAMENT V4 SE USA ASÍ (Alto en píxeles, Ancho en píxeles o string) ⬇️
+                    ->imageHeight('45rem')
+
+                    // Nos aseguramos de que la imagen se adapte sin deformarse
+                    ->extraImgAttributes([
+                        'style' => 'object-fit: cover; border-radius: 0.5rem; width: 100%;',
+                    ])
+                    ->columnSpan(2), // Le damos 2 columnas para que la leyenda (caption) tenga su propio lado,
+                TextEntry::make('image_caption')
+                    ->placeholder('-')
+                    ->label('Leyenda de la Imagen')
+                    ->placeholder('Sin descripción')
+                    ->columnSpan(1),
                 TextEntry::make('views_count')
                     ->numeric(),
                 TextEntry::make('seo_title')
