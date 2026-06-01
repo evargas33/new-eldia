@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
-use Filament\Tables\Table;
+use App\Enums\PostStatus;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use App\Enums\PostStatus;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 
 class PostsTable
 {
@@ -30,6 +31,11 @@ class PostsTable
                     ->sortable()
                     ->wrap() // Si el título es largo, baja de renglón en vez de empujar la pantalla
                     ->weight('bold'),
+                TextColumn::make('categories.name')
+                    ->label('Categoría')
+                    ->sortable()
+                    ->badge() // Se ve muy limpio como una pequeña insignia gris
+                    ->color('gray'),
 
                 // 3. El Estado Editorial: Lo convertimos en una insignia (Badge) con color
                 TextColumn::make('status')
@@ -63,6 +69,11 @@ class PostsTable
             ])
             ->filters([
                 // Aquí irán tus filtros después
+                SelectFilter::make('categories')
+                    ->label('Filtrar por Categoría')
+                    ->relationship('categories', 'name')
+                    ->preload()
+                    ->multiple(), // Permite filtrar por varias categorías a la vez si se requiere
             ]);
     }
 }

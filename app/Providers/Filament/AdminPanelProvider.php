@@ -29,11 +29,25 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            
+
             ->login()
+            // 1. 🎨 CONFIGURACIÓN DE COLORES DEL DÍA
             ->colors([
-                'primary' => Color::Amber,
+                // Cambiamos el color primario al azul oficial de tu logo (usa tu código HEX real)
+                'primary' => Color::rgb('rgb(0, 102, 204)'), // O puedes usar HEX directo: '#0066cc'
+                'gray' => Color::Zinc, // Un gris elegante para los fondos y textos secundarios
             ])
+
+            // 2. 🖼️ PERSONALIZACIÓN VISUAL (LOGO Y BRANDING)
+            ->brandName('El Día de Michoacán') // Nombre en la pestaña si no carga el logo
+            ->brandLogo(asset('images/placeholder.jpg')) // 👈 Pon aquí la ruta real de tu logo limpio de "El Día" si tienes uno horizontal
+            ->brandLogoHeight('2.5rem') // Controla el tamaño para que no se desfase el menú
+            ->favicon(asset('images/favicon.png')) // El ícono chiquito de la pestaña del navegador
+
+            // 3. 🛡️ EXTRAS DE IDENTIDAD
+            ->sidebarCollapsibleOnDesktop() // Hace que el menú izquierdo se pueda encoger para dar más espacio
+          
+            
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use App\Enums\UserRole;
 
 class UserResource extends Resource
 {
@@ -55,4 +56,10 @@ class UserResource extends Resource
             'edit' => EditUser::route('/{record}/edit'),
         ];
     }
+
+    public static function canViewAny(): bool
+{
+    // Solo permite la entrada si el usuario logueado tiene el rol ADMIN
+    return auth()->user()->role === UserRole::ADMIN;
+}
 }

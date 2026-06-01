@@ -48,21 +48,27 @@ class PostForm
                                         ->label('Cuerpo de la noticia')
                                         ->required()
                                         ->columnSpanFull(),
-
-                                    Select::make('categories')
-                                        ->label('Categorías')
-                                        ->relationship('categories', 'name')
-                                        ->preload()
-                                        ->searchable()
-                                        ->multiple()
-                                        ->required(),
-
-                                    Select::make('tags')
-                                        ->label('Etiquetas (Tags)')
-                                        ->relationship('tags', 'name')
-                                        ->preload()
-                                        ->searchable()
-                                        ->multiple(),
+                                    Group::make()
+                                        ->schema([
+                                            
+                                                
+                                                     Select::make('categories')
+                                                        ->label('Categorías')
+                                                        ->relationship('categories', 'name')
+                                                        ->preload()
+                                                        ->searchable()
+                                                        ->multiple()
+                                                        ->required(),
+                                                    Select::make('tags')
+                                                        ->label('Etiquetas (Tags)')
+                                                        ->relationship('tags', 'name')
+                                                        ->preload()
+                                                        ->searchable()
+                                                        ->multiple(),
+                                                
+                                            
+                                    ])
+                                    
                                 ]),
                         ])->columnSpan(2),
 
@@ -94,6 +100,16 @@ class PostForm
                                         ->placeholder('Ej: Imagen de Archivo...')
                                         ->maxLength(255) // Para que no rompa la base de datos
                                         ->string(), // Validación básica de texto
+                                    TextInput::make('seo_title')
+                                        ->label('Titulo para SEO')
+                                        ->placeholder('Titulo simple con reglas SEO')
+                                        ->maxLength(255)
+                                        ->string(),
+                                    TextInput::make('seo_description')
+                                        ->label('Descripció para SEO')
+                                        ->placeholder('Describe la nota para SEO')
+                                        ->maxLength(255)
+                                        ->string(),
                                 ]),
                         ])->columnSpan(1),
 
